@@ -1,13 +1,11 @@
-import polka from 'polka';
+import app from './lib/server/db/index';
+import http from 'http';
 
-const app = polka();
+// Create a new HTTP server.
+const server = http.createServer(app);
 
-// Define a GET route at /api/hello
-app.get('/api/hello', (req, res) => {
-  res.end('Hello, world!');
-});
-
-// Start the server on port 3000
-app.listen(3000, () => {
-  console.log(`Server started on http://localhost:3000`);
+// Listen for requests on port 3000.
+const port = 3000;
+server.listen(port, () => {
+	console.log(`Server running on http://localhost:${port}`);
 });

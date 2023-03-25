@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { onMount } from 'svelte';
   interface Post {
     id: number;
     title: string;
@@ -10,11 +11,11 @@
 
   let posts: Post[] = [];
 
-  fetch("/api/posts")
-    .then((response) => response.json())
-    .then((data) => {
-      posts = data.posts;
-    });
+  onMount(async () => {
+    const res = await fetch('/api/posts');
+    posts = await res.json();
+  });
+
 </script>
 
 <h1>Posts</h1>
