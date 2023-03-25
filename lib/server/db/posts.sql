@@ -1,0 +1,14 @@
+PRAGMA foreign_keys = OFF;
+DROP TABLE IF EXISTS posts;
+PRAGMA foreign_keys = ON;
+
+CREATE TABLE posts (
+  id INTEGER PRIMARY KEY,
+  title VARCHAR(255) NOT NULL,
+  content TEXT NOT NULL,
+  author VARCHAR(255) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
