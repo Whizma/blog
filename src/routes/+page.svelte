@@ -12,7 +12,7 @@
   let posts: Post[] = [];
 
   onMount(async () => {
-    const res = await fetch('/api/posts');
+    const res = await fetch('http://localhost:3000/api/posts');
     posts = await res.json();
   });
 
