@@ -1,4 +1,4 @@
-import express, { Request, Response } from "express";
+import express, { Request, Response } from 'express';
 import sqlite3 from "sqlite3";
 
 const app = express();
@@ -70,3 +70,4 @@ app.get("/posts", (req: Request, res: Response) => {
 app.listen(port, () => {
   console.log(`Server listening at http://localhost:${port}`);
 });
+
