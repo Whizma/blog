@@ -1,4 +1,4 @@
-import app from './lib/server/db/index';
+import app from './lib/server/db/index.js';
 import http from 'http';
 
 // Create a new HTTP server.
