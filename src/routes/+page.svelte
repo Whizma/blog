@@ -12,7 +12,7 @@
   let posts: Post[] = [];
 
   onMount(async () => {
-    const res = await fetch('http://localhost:3000/api/posts');
+    const res = await fetch('http://localhost:3000/posts');
     posts = await res.json();
   });
 
@@ -22,6 +22,16 @@
 
 <ul>
   {#each posts as post}
-    <li>{post.title}</li>
+    <li>
+      <h2>
+        {post.title}
+      </h2>
+      <h3>
+        {post.content}
+      </h3>
+      <h4>
+        {"posted by " + post.author + " at " + post.created_at}
+      </h4>
+    </li>
   {/each}
 </ul>
