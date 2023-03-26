@@ -1,6 +1,6 @@
+import './lib/server/db/init-db.js';
 import app from './lib/server/db/index.js';
 import http from 'http';
-import './lib/server/db/init-db.js';
 
 // Create a new HTTP server.
 const server = http.createServer(app);
