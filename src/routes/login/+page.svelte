@@ -1,6 +1,13 @@
 <script>
-  import { signIn, signOut } from "@auth/sveltekit/client"
-  import { page } from "$app/stores"
+  import { signIn, signOut } from "@auth/sveltekit/client";
+  import { page } from "$app/stores";
+  import SignInButton from '../../components/SignInButton.svelte';
+    
+  // @ts-ignore
+  async function handleSignIn(provider) {
+    await signIn(provider);
+  }
+  
 </script>
 
 <h1>SvelteKit Auth Example</h1>
@@ -19,6 +26,6 @@
     <button on:click={() => signOut()} class="button">Sign out</button>
   {:else}
     <span class="notSignedInText">You are not signed in</span>
-    <button on:click={() => signIn("github")}>Sign In with GitHub</button>
+    <button on:click={() => handleSignIn("github")}>Sign In with GitHub</button>
   {/if}
 </p>
