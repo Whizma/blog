@@ -1,8 +1,8 @@
-import { redirect } from '@sveltejs/kit';
-import type { PageServerLoad } from './$types';
+import { redirect } from '@sveltejs/kit'
 
-export const load: PageServerLoad = async (event) => {
-  const session = await event.locals.getSession();
-  if (!session?.user) throw redirect(303, '/auth');
-  return {};
-};
+export const load = async ({ locals }) => {
+	// redirect user if not logged in
+	if (!locals.user) {
+		throw redirect(302, '/')
+	}
+}

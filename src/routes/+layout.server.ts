@@ -1,7 +1,8 @@
-import type { LayoutServerLoad } from './$types';
+import type { LayoutServerLoad } from './$types'
 
-export const load: LayoutServerLoad = async (event) => {
+// get `locals.user` and pass it to the `page` store
+export const load: LayoutServerLoad = async ({ locals }) => {
   return {
-    session: await event.locals.getSession()
-  };
-};
+    user: locals.user,
+  }
+}

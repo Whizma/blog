@@ -1,31 +1,44 @@
-<script>
-  import { signIn, signOut } from "@auth/sveltekit/client";
-  import { page } from "$app/stores";
-  import SignInButton from '../../components/SignInButton.svelte';
-    
-  // @ts-ignore
-  async function handleSignIn(provider) {
-    await signIn(provider);
-  }
-  
+<script lang="ts">
+	import { applyAction, enhance } from '$app/forms';
+	import { invalidateAll } from '$app/navigation';
+	export let form;
 </script>
 
-<h1>SvelteKit Auth Example</h1>
-<p>
-  {#if $page.data.session}
-    {#if $page.data.session.user?.image}
-      <span
-        style="background-image: url('{$page.data.session.user.image}')"
-        class="avatar"
-      />
-    {/if}
-    <span class="signedInText">
-      <small>Signed in as</small><br />
-      <strong>{$page.data.session.user?.name ?? "User"}</strong>
-    </span>
-    <button on:click={() => signOut()} class="button">Sign out</button>
-  {:else}
-    <span class="notSignedInText">You are not signed in</span>
-    <button on:click={() => handleSignIn("github")}>Sign In with GitHub</button>
-  {/if}
-</p>
+<h1>Login</h1>
+
+<form
+	action="?/login"
+	method="POST"
+	use:enhance={() => {
+		return async ({ result }) => {
+			// rerun the `load` function for the page
+			// https://kit.svelte.dev/docs/modules#$app-navigation-invalidateall
+			invalidateAll()
+
+			// since we're customizing the default behaviour
+			// we don't want to reimplement what `use:enhance` does
+			// so we can use `applyResult` and pass the `result`
+			await applyAction(result)
+		}
+	}}
+>
+	<div>
+		<label for="username">Username</label>
+		<input id="username" name="username" type="text" required />
+	</div>
+
+	<div>
+		<label for="password">Password</label>
+		<input id="password" name="password" type="password" required />
+	</div>
+
+	{#if form?.invalid}
+		<p class="error">Username and password is required.</p>
+	{/if}
+
+	{#if form?.credentials}
+		<p class="error">You have entered the wrong credentials.</p>
+	{/if}
+
+	<button type="submit">Log in</button>
+</form>

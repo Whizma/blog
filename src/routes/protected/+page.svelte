@@ -1,19 +1,15 @@
 <script lang="ts">
-  import { page } from "$app/stores"
+	import { page } from '$app/stores'
 </script>
 
-{#if $page.data.session}
-<h1>Protected page</h1>
-<p>
-  This is a protected content. You can access this content because you are
-  signed in.
-</p>
-<p>Session expiry: {$page.data.session?.expires}</p>
-{:else}
-<h1>Access Denied</h1>
-<p>
-  <a href="/login">
-    You must be signed in to view this page
-  </a>
-</p>
+<h1>Admin</h1>
+
+{#if $page.data.user}
+	<p>Welcome {$page.data.user.name}!</p>
+{/if}
+
+{#if $page.data.user.role === 'ADMIN'}
+	<form action="/logout" method="POST">
+		<button type="submit">Log out</button>
+	</form>
 {/if}
