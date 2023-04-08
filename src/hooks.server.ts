@@ -5,6 +5,7 @@ import db from '../lib/userDatabase'
 export const handle: Handle = async ({ event, resolve }) => {
 	// get cookies from browser
 	const session = event.cookies.get('session')
+  console.log("session: " + session);
 
 	if (!session) {
 		// if there is no session load page as normal
@@ -23,6 +24,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 			name: user.username,
 			role: user.role.name,
 		}
+		console.log("user.role, user.data: " + user.role, user.role);
 	}
 
 	// load page as normal

@@ -22,6 +22,7 @@ export const actions = {
 		const data = await request.formData()
 		const username = data.get('username')
 		const password = data.get('password')
+		console.log("request: " + request);
 
 		if (
 			typeof username !== 'string' ||
@@ -31,7 +32,6 @@ export const actions = {
 		) {
 			return fail(400, { invalid: true })
 		}
-
 		const user = await db.user.findUnique({
 			where: { username },
 		})
@@ -46,9 +46,9 @@ export const actions = {
 				passwordHash: await bcrypt.hash(password, 10),
 				userAuthToken: crypto.randomUUID(),
 				role: { connect: { name: Roles.USER } },
-			},
+			}, 
 		})
-
+		console.log("data: " + data);
 		throw redirect(303, '/login')
 	},
 }
